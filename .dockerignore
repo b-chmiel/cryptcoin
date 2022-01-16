@@ -1,0 +1,6 @@
+/target
+/tests
+/.vscode
+Dockerfile
+Makefile
+README.md
