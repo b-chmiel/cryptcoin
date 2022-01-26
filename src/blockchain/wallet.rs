@@ -1,7 +1,9 @@
-use crate::blockchain::Blockchain;
-use crate::key::{KeyPair, PublicKey};
-use crate::signature::Signature;
-use crate::transaction::Transaction;
+use crate::blockchain::{
+	blockchain::Blockchain,
+	key::{KeyPair, PublicKey},
+	signature::Signature,
+	transaction::Transaction,
+};
 use std::fmt;
 
 pub struct Wallet {

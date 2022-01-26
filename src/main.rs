@@ -1,19 +1,20 @@
-use cryptcoin::blockchain::Blockchain;
-use cryptcoin::wallet::Wallet;
+use cryptcoin::messaging::messaging::{Messenger, NatsMessenger};
+use rand::Rng;
+use std::{thread, time};
 
 fn main() {
-    let mut chain = Blockchain::new();
-    let satoshi = Wallet::new();
-    let user1 = Wallet::new();
-    let user2 = Wallet::new();
+    sleep_random_time();
 
-    println!("Satoshi: {:#?}", satoshi);
-    println!("User1: {:#?}", user1);
-    println!("User2: {:#?}", user2);
+    let mes: Box<dyn Messenger> = Box::new(NatsMessenger::new());
+    (*mes).init();
 
-    satoshi.send(&mut chain, 10.0, &user1.key_pair.public_key);
-    user1.send(&mut chain, 5.0, &user2.key_pair.public_key);
-    user2.send(&mut chain, 2.0, &user1.key_pair.public_key);
+    loop {}
+}
 
-    println!("{:#?}", chain);
+fn sleep_random_time() {
+    let mut rng = rand::thread_rng();
+
+    let time = time::Duration::from_secs(rng.gen_range(0..20));
+    println!("Sleeping for {}", time.as_secs());
+    thread::sleep(time);
 }

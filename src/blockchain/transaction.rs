@@ -1,5 +1,4 @@
-use crate::key::PublicKey;
-use crate::signature::Signature;
+use crate::blockchain::{key::PublicKey, signature::Signature};
 
 #[derive(Debug)]
 pub struct Transaction {

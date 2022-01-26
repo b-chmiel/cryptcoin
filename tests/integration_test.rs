@@ -1,5 +1,4 @@
-use cryptcoin::blockchain::Blockchain;
-use cryptcoin::wallet::Wallet;
+use cryptcoin::blockchain::{blockchain::Blockchain, wallet::Wallet};
 
 #[test]
 fn send_balance() {

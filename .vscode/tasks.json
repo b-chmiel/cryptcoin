@@ -7,7 +7,7 @@
 			"problemMatcher": [
 				"$rustc"
 			],
-			"label": "Rust: cargo run - bitcoin"
+			"label": "Rust: cargo run - cryptcoin"
 		}
 	]
 }

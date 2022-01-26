@@ -7,15 +7,15 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "Debug executable 'bitcoin'",
+			"name": "Debug executable 'cryptcoin'",
 			"cargo": {
 				"args": [
 					"build",
-					"--bin=bitcoin",
-					"--package=bitcoin"
+					"--bin=cryptcoin",
+					"--package=cryptcoin"
 				],
 				"filter": {
-					"name": "bitcoin",
+					"name": "cryptcoin",
 					"kind": "bin"
 				}
 			},
@@ -25,16 +25,16 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "Debug unit tests in executable 'bitcoin'",
+			"name": "Debug unit tests in executable 'cryptcoin'",
 			"cargo": {
 				"args": [
 					"test",
 					"--no-run",
-					"--bin=bitcoin",
-					"--package=bitcoin"
+					"--bin=cryptcoin",
+					"--package=cryptcoin"
 				],
 				"filter": {
-					"name": "bitcoin",
+					"name": "cryptcoin",
 					"kind": "bin"
 				}
 			},

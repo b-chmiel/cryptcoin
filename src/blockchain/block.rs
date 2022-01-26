@@ -1,5 +1,4 @@
-use crate::hash::Hash;
-use crate::transaction::Transaction;
+use crate::blockchain::{hash::Hash, transaction::Transaction};
 use chrono::{NaiveDateTime, Utc};
 use rand::RngCore;
 

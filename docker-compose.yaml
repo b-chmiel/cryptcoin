@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  broker:
+    image: nats:scratch
+  user:
+    build: .
+    links:
+      - "broker:broker"
