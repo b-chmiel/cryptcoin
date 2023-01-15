@@ -1,54 +1,60 @@
 use crate::blockchain::{
-	blockchain::Blockchain,
-	key::{KeyPair, PublicKey},
-	signature::Signature,
-	transaction::Transaction,
+    blockchain::Blockchain,
+    currency::Currency,
+    key::{KeyPair, PublicKey},
+    signature::Signature,
+    transaction::Transaction,
 };
 use std::fmt;
 
 pub struct Wallet {
-	pub key_pair: KeyPair,
+    pub key_pair: KeyPair,
 }
 
 impl Wallet {
-	pub fn new() -> Self {
-		Self {
-			key_pair: KeyPair::new(),
-		}
-	}
+    pub fn new() -> Self {
+        Self {
+            key_pair: KeyPair::new(),
+        }
+    }
 
-	pub fn send(&self, chain: &mut Blockchain, amount: f32, receiver_pk: &PublicKey) {
-		let trans = Transaction {
-			amount,
-			receiver_pk: receiver_pk.clone(),
-			sender_pk: self.key_pair.public_key.clone(),
-		};
+    pub fn send(&self, chain: &mut Blockchain, amount: f32, receiver_pk: &PublicKey) {
+        let currency = Currency { amount };
+        let trans = Transaction {
+            amount: currency,
+            receiver_pk: receiver_pk.clone(),
+            sender_pk: self.key_pair.public_key.clone(),
+        };
 
-		let signature = Signature::new(trans.to_string(), &self.key_pair.private_key);
+        let signature = Signature::new(trans.to_string(), &self.key_pair.private_key);
 
-		match chain.add_block(trans, &signature) {
-			true => println!("Transfered: {} coins", amount),
-			false => println!("Cannot transfer!"),
-		}
-	}
+        match chain.add_block(trans, &signature) {
+            true => println!("Transfered: {} coins", amount),
+            false => println!("Cannot transfer!"),
+        }
+    }
 
-	pub fn balance(&self, chain: &Blockchain) -> f32 {
-		let mut balance = 0.0;
+    pub fn send_initial(&self, chain: &mut Blockchain) -> Result<(), ()> {
+        Ok(())
+    }
 
-		for block in &chain.blocks {
-			if block.transaction.receiver_pk == self.key_pair.public_key {
-				balance += block.transaction.amount;
-			} else if block.transaction.sender_pk == self.key_pair.public_key {
-				balance -= block.transaction.amount;
-			}
-		}
+    pub fn balance(&self, chain: &Blockchain) -> f32 {
+        let mut balance = Currency { amount: 0.0 };
 
-		balance
-	}
+        for block in &chain.blocks {
+            if block.transaction.receiver_pk == self.key_pair.public_key {
+                balance += block.transaction.amount.clone();
+            } else if block.transaction.sender_pk == self.key_pair.public_key {
+                balance -= block.transaction.amount.clone();
+            }
+        }
+
+        balance.amount
+    }
 }
 
 impl fmt::Debug for Wallet {
-	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{:?}", self.key_pair.public_key)
-	}
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{:?}", self.key_pair.public_key)
+    }
 }

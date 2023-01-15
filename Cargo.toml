@@ -3,22 +3,31 @@ name = "cryptcoin"
 version = "0.1.0"
 edition = "2021"
 readme = "README.md"
+default-run = "cryptcoin"
 
 [dependencies]
-chrono = "0.4.19"
+chrono = { version = "0.4.19", features = ["serde"] }
 sha2 = "0.10.1"
-rsa = "0.5.0"
+rsa = { version = "0.5.0", features = ["serde"] }
 rand = "0.8.4"
 md5 = "0.7.0"
 base64 = "0.13.0"
 config = "0.11.0"
-nats = "0.16.0"
-serde = "1.0.133"
+nats = "0.18.0"
+serde = "1.0.136"
 serde_yaml = "0.8.23"
 
 [[bin]]
 name = "cryptcoin"
 path = "src/main.rs"
+
+[[bin]]
+name = "genesis"
+path = "src/genesis.rs"
+
+[[bin]]
+name = "user"
+path = "src/user.rs"
 
 [lib]
 name = "cryptcoin"

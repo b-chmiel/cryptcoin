@@ -1,11 +1,11 @@
-use cryptcoin::messaging::messaging::{Messenger, NatsMessenger};
+use cryptcoin::messenger::{Messenger, NatsMessenger};
 use rand::Rng;
 use std::{thread, time};
 
 fn main() {
     sleep_random_time();
 
-    let mes: Box<dyn Messenger> = Box::new(NatsMessenger::new());
+    let mut mes: Box<dyn Messenger> = Box::new(NatsMessenger::new());
     (*mes).init();
 
     loop {}

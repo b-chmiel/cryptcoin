@@ -1,0 +1,3 @@
+messaging_host = "0.0.0.0:4222"
+subject = "blockchain"
+data_file = "data_satoshi.yaml"

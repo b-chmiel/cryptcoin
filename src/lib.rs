@@ -1,2 +1,3 @@
+pub mod account_manager;
 pub mod blockchain;
-pub mod messaging;
+pub mod messenger;

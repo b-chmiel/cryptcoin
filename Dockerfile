@@ -4,7 +4,9 @@ ENV APP_NAME cryptcoin
 
 WORKDIR /app
 
-RUN cargo install cargo-chef
+RUN --mount=type=cache,target=/root/.cargo \
+	--mount=type=cache,target=/usr/local/cargo/registry \
+	cargo install cargo-chef
 
 COPY Cargo.lock .
 COPY Cargo.toml .

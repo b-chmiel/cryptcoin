@@ -1,28 +1,29 @@
 use crate::blockchain::{
-    block::Block, hash::Hash, signature::Signature, transaction::Transaction, wallet::Wallet,
+    block::Block, currency::Currency, hash::Hash, signature::Signature, transaction::Transaction,
+    wallet::Wallet,
 };
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Blockchain {
     pub blocks: Vec<Block>,
 }
 
 impl Blockchain {
-    pub fn new() -> Self {
-        let mut blocks = Vec::new();
-        let satoshi = Wallet::new();
+    pub fn create_and_send_init_to(satoshi: &mut Wallet) -> Self {
         let first = Wallet::new();
         let trans = Transaction {
-            amount: 100.0,
+            amount: Currency { amount: 100.0 },
             receiver_pk: satoshi.key_pair.public_key.clone(),
             sender_pk: first.key_pair.public_key.clone(),
         };
         let hash = Hash::new(String::from("first"));
 
         let block = Block::new(trans, hash);
-        blocks.push(block);
 
-        Blockchain { blocks }
+        Blockchain {
+            blocks: vec![block],
+        }
     }
 
     pub fn add_block(&mut self, transaction: Transaction, signature: &Signature) -> bool {
